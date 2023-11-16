@@ -105,9 +105,9 @@ def main(image, width, height, detector, min_confidence, padding):
     # printing OCR results & drawing them on the image
     for (start_x, start_y, end_x, end_y), text in results:
 
-        print('OCR Result')
-        print('**********')
-        print(f'{text}\n')
+        # print('OCR Result')
+        # print('**********')
+        print(f'{text} ')
 
         # stripping out ASCII characters
         text = ''.join([c if ord(c) < 128 else "" for c in text]).strip()
