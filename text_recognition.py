@@ -122,7 +122,7 @@ def main(image, width, height, detector, min_confidence, padding):
         plt.imshow(output)
         plt.title('Detection')
         plt.show()
-        cv2.waitKey(0)
+        # cv2.waitKey(0)
 
 
 if __name__ == '__main__':
