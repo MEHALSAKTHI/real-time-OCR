@@ -122,7 +122,7 @@ def main(image, width, height, detector, min_confidence, padding):
 if __name__ == '__main__':
 
     # setting up tesseract path
-    pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+    pytesseract.pytesseract.tesseract_cmd = 'tesseract'
 
     args = get_arguments()
 
