@@ -1,24 +1,9 @@
-# coding: utf-8
-# =====================================================================
-#  Filename:    text_detection.py
-#
-#  py Ver:      python 3.6 or later
-#
-#  Description: Recognizes regions of text in a given image
-#
-#  Usage: python text_detection.py --image test.png --east frozen_east_text_detection.pb
-#
-#  Note: Requires opencv 3.4.2 or later
-#
-#  Author: Ankit Saxena (ankch24@gmail.com)
-# =====================================================================
-
 from imutils.object_detection import non_max_suppression
 import numpy as np
 import argparse
 import cv2
+import matplotlib.pyplot as plt
 from utils import forward_passer, box_extractor
-
 
 def get_arguments():
     ap = argparse.ArgumentParser()
@@ -35,7 +20,6 @@ def get_arguments():
     arguments = vars(ap.parse_args())
 
     return arguments
-
 
 def resize_image(image, width, height):
     """
@@ -54,9 +38,7 @@ def resize_image(image, width, height):
 
     return image, ratio_w, ratio_h
 
-
 def main(image, width, height, detector, min_confidence):
-
     # reading in image
     image = cv2.imread(image)
     orig_image = image.copy()
@@ -90,13 +72,15 @@ def main(image, width, height, detector, min_confidence):
 
         cv2.rectangle(orig_image, (start_x, start_y), (end_x, end_y), (0, 255, 0), 2)
 
-    cv2.imshow("Detection", orig_image)
-    cv2.waitKey(0)
+    # Convert color from BGR to RGB
+    orig_image = cv2.cvtColor(orig_image, cv2.COLOR_BGR2RGB)
 
+    # Use matplotlib to display the image
+    plt.imshow(orig_image)
+    plt.title("Detection")
+    plt.show()
 
 if __name__ == '__main__':
-
     args = get_arguments()
-
     main(image=args['image'], width=args['width'], height=args['height'],
          detector=args['east'], min_confidence=args['min_confidence'])
