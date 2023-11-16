@@ -4,6 +4,8 @@ import argparse
 import cv2
 import matplotlib.pyplot as plt
 from utils import forward_passer, box_extractor
+import pytesseract
+
 
 def get_arguments():
     ap = argparse.ArgumentParser()
@@ -79,6 +81,28 @@ def main(image, width, height, detector, min_confidence):
     plt.imshow(orig_image)
     plt.title("Detection")
     plt.show()
+    extracted_texts = []
+
+# drawing rectangles and extracting text
+    for (start_x, start_y, end_x, end_y) in boxes:
+        start_x = int(start_x * ratio_w)
+        start_y = int(start_y * ratio_h)
+        end_x = int(end_x * ratio_w)
+        end_y = int(end_y * ratio_h)
+    
+        # Draw rectangle
+        cv2.rectangle(orig_image, (start_x, start_y), (end_x, end_y), (0, 255, 0), 2)
+    
+        # Extract the text region from the original image
+        text_region = orig_image[start_y:end_y, start_x:end_x]
+    
+        # Use Tesseract to extract text
+        text = pytesseract.image_to_string(text_region)
+        extracted_texts.append(text)
+    
+    # Print or store the extracted texts
+    for text in extracted_texts:
+        print(text) 
 
 if __name__ == '__main__':
     args = get_arguments()
