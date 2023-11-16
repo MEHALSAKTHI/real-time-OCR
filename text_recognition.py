@@ -23,6 +23,7 @@ import cv2
 from utils import forward_passer, box_extractor
 from text_detection import resize_image
 from imutils.object_detection import non_max_suppression
+import matplotlib.pyplot as plt
 
 
 def get_arguments():
@@ -115,7 +116,12 @@ def main(image, width, height, detector, min_confidence, padding):
         cv2.putText(output, text, (start_x, start_y - 20),
                     cv2.FONT_HERSHEY_SIMPLEX, 1.2, (0, 0, 255), 3)
 
-        cv2.imshow('Detection', output)
+        output = cv2.cvtColor(output, cv2.COLOR_BGR2RGB)
+
+        # Display the image using Matplotlib
+        plt.imshow(output)
+        plt.title('Detection')
+        plt.show()
         cv2.waitKey(0)
 
 
